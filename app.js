@@ -16,8 +16,11 @@ app.use(logger('dev'));
 /*
   If it's having trouble parsing, may need to update the parser to look for a different content type, sometimes IO Events
   sends a custom json content type which gets handled weirdly and doesn't get parsed appropriately
+  It's been set up to try to handle both the two json types I'm aware of
 */
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  type: ['application/json', 'application/cloudevents+json']
+}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
