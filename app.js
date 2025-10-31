@@ -12,7 +12,12 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 app.use(logger('dev'));
-app.use(bodyParser.json({type: 'application/cloudevents+json'}));
+
+/*
+  If it's having trouble parsing, may need to update the parser to look for a different content type, sometimes IO Events
+  sends a custom json content type which gets handled weirdly and doesn't get parsed appropriately
+*/
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
